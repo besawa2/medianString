@@ -9,30 +9,29 @@ public class MedianString {
         List<String> kmers = new ArrayList<>();  
 
         generateKmers("", k, bases, kmers); // pseudocode - generate all k-mers from aa...aa to tt...tt  
-                // iterate over all possible k-mers  
         for (int i = 0; i < kmers.size(); i++) { // pseudocode - for each k-mer pattern from aa…aa to tt…tt  
             String kmer = kmers.get(i);  
             int totalDist = 0; // pseudocode - d(pattern, dna) ← 0  
 
-            // loop through each dna sequence  
-            for (int j = 0; j < dna.size(); j++) {  
+            for (int j = 0; j < dna.size(); j++) {// loop through each dna sequence  
                 String seq = dna.get(j);  
                 int minDist = Integer.MAX_VALUE; // pseudocode - d(dnai, pattern) ← ∞  
-
                 // iterate over all k-mers in the current dna sequence  
+
                 for (int l = 0; l <= seq.length() - k; l++) {  
                     int dist = 0;  
 
-                    // compute hamming distance  
-                    for (int m = 0; m < k; m++) {  
+                    for (int m = 0; m < k; m++) { // compute hamming distance  
                         if (seq.charAt(l + m) != kmer.charAt(m)) {  
                             dist++; // pseudocode - if hammingdistance(str, pattern) < d(dnai, pattern)  
+
                         }  
                     }  
                     if (dist < minDist) {  
                         minDist = dist; // pseudocode - d(dnai, pattern) ← hammingdistance(str, pattern)  
                     }  
-                }  
+                }
+
                 totalDist += minDist;  
             }  
 
@@ -42,7 +41,9 @@ public class MedianString {
                 median = kmer; // pseudocode - median ← pattern  
             }  
         }  
+
         return median; // pseudocode - return median  
+        
     }  
 
     // generates all possible k-mers recursively  
@@ -57,7 +58,7 @@ public class MedianString {
     }  
 
     public static void main(String[] args) {  
-        List<String> dna = Arrays.asList("ATGCA", "GATGC", "CGTGA", "TTGCA");
+        List<String> dna = Arrays.asList("ACGT", "ACGT", "ACGT");
         int k = 3; 
         System.out.println("most likely motif is - " + medianString(dna, k)); 
     }  
